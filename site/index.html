@@ -71,6 +71,17 @@ h2{font-size:clamp(24px,3.6vw,34px);font-weight:700;margin:0 0 8px}
 .two{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 .two p{color:var(--ink2)}
 .two strong{color:var(--ink);font-weight:600}
+.feats{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(268px,1fr))}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px}
+.feat .n{font-family:Sora,sans-serif;font-size:12px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--plum);margin-bottom:9px}
+.feat h3{font-size:18px;margin:0 0 7px;font-weight:600}
+.feat p{margin:0;font-size:15px;color:var(--ink2)}
+.feat ul{margin:10px 0 0;padding-left:18px;font-size:14px;color:var(--ink2)}
+.feat li{margin-bottom:3px}
+.feat .tags{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}
+.feat .tags span{font-family:Sora,sans-serif;font-size:12px;padding:4px 9px;border-radius:8px;
+  border:1px solid var(--line);color:var(--ink2)}
 footer{padding:40px 0 64px;border-top:1px solid var(--line);font-size:14px;color:var(--ink2)}
 footer a{margin-right:18px}
 .disclaim{max-width:56ch;margin-top:14px}
@@ -119,6 +130,67 @@ footer a{margin-right:18px}
     </div>
   </section>
 
+  <section id="features">
+    <h2>What is actually in it</h2>
+    <p class="sub">Nine screens, no account on any of them. Only two things need the
+      internet: opening a job board, and downloading the coach the one time.</p>
+    <div class="feats">
+
+      <div class="feat"><div class="n">Today</div>
+        <h3>One next thing</h3>
+        <p>Opens on a single instruction — check in, apply, do a mock, learn something,
+          or rest — with the days left in your notice period counting down beside it.</p></div>
+
+      <div class="feat"><div class="n">Practice</div>
+        <h3>Mock interviews that score you</h3>
+        <p>Questions written for the role you named, then a mark out of five on
+          <strong>structure</strong> and five on <strong>specificity</strong> — plus a
+          stronger version of the answer you just gave.</p>
+        <div class="tags"><span>HR</span><span>Technical</span><span>Managerial</span><span>Behavioural</span></div></div>
+
+      <div class="feat"><div class="n">Resume</div>
+        <h3>A resume that gets read</h3>
+        <p>Paste your resume, and the job description if you have it. You get back a
+          blunt verdict, a list of fixes, your bullets rewritten, and the keywords the
+          posting wants that your resume never says.</p></div>
+
+      <div class="feat"><div class="n">Track</div>
+        <h3>Every application, as a pipeline</h3>
+        <p>Move each one along as it happens. This is also what feeds the daily plan —
+          the app counts what you logged, not what you meant to do.</p>
+        <div class="tags"><span>Saved</span><span>Applied</span><span>Screening</span><span>Interview</span><span>Offer</span><span>Rejected</span></div></div>
+
+      <div class="feat"><div class="n">Jobs</div>
+        <h3>Eight job boards, one query</h3>
+        <p>Your role and city go into every search box for you. These are ordinary
+          links — nothing is scraped and no server sits in the middle.</p>
+        <div class="tags"><span>Naukri</span><span>LinkedIn</span><span>Indeed</span><span>Instahyre</span><span>Cutshort</span><span>Wellfound</span><span>Glassdoor</span><span>Google Jobs</span></div></div>
+
+      <div class="feat"><div class="n">Coach</div>
+        <h3>For the bad afternoons</h3>
+        <p>Four rejections in a week is normal and it still hurts. Ask it anything about
+          the search — it knows your target role, your notice date and where you are.</p></div>
+
+      <div class="feat"><div class="n">Journal</div>
+        <h3>Rejections, wins, patterns</h3>
+        <p>Notes you keep as you go. Three months in, this is the only honest record of
+          what actually worked.</p></div>
+
+      <div class="feat"><div class="n">Profile</div>
+        <h3>The goal, written down once</h3>
+        <p>Target role, years, city, skills, the day your notice ends, how many offers you
+          want and how many applications a day that takes. Everything else is built from this.</p></div>
+
+      <div class="feat"><div class="n">Settings</div>
+        <h3>Your choice of engine</h3>
+        <p>Run the coach on the phone, or paste your own Gemini key for sharper answers.
+          The Coach screen carries a badge telling you which one just answered,
+          rather than pretending they are the same.</p>
+        <div class="tags"><span>English</span><span>हिन्दी</span><span>Delete everything</span></div></div>
+
+    </div>
+  </section>
+
   <section>
     <h2>It runs on your phone</h2>
     <div class="two">
@@ -141,6 +213,7 @@ footer a{margin-right:18px}
   </section>
 
   <footer>
+    <a href="#features">Features</a>
     <a href="app/">Web app</a>
     <a href="https://github.com/pallavsharmaofficial/vyuhbhed">GitHub</a>
     <a href="https://github.com/pallavsharmaofficial/vyuhbhed/releases/latest">Releases</a>
