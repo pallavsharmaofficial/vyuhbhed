@@ -90,6 +90,11 @@ jobs:
             ${{ vars.SAATH_SUPPORT_URL && format('--dart-define=SAATH_SUPPORT_URL={0}', vars.SAATH_SUPPORT_URL) || '' }}
           mv build/app/outputs/bundle/release/app-release.aab vyuhbhed-${{ github.ref_name }}.aab
 
+      - name: Verify the APK can launch
+        # v0.2.0 shipped an APK with no launch activity: analyze was clean, 212
+        # tests passed, CI was green, and none of it looks inside the dex.
+        run: ./tool/verify-apk.sh vyuhbhed-${{ github.ref_name }}.apk
+
       - name: Publish
         uses: softprops/action-gh-release@v2
         with:

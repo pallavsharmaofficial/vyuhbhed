@@ -60,6 +60,11 @@ jobs:
       # in the repo. arm64 only, for the reason in docs/RELEASE.md.
       - run: flutter build apk --debug --target-platform android-arm64
 
+      - name: Verify the APK can launch
+        # Catches a MainActivity whose package no longer matches the manifest —
+        # the bug that shipped in v0.2.0 and crashed on every device.
+        run: ./tool/verify-apk.sh build/app/outputs/flutter-apk/app-debug.apk
+
   ios:
     name: Build iOS
     runs-on: macos-latest
