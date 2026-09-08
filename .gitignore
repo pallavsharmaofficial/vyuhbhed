@@ -55,3 +55,6 @@ app.*.map.json
 # Strategy notes kept off the public repo (revenue thinking, unbuilt-feature
 # list). Local only — see private-docs/.
 /private-docs/
+
+# Assembled Pages output (landing page + app), built in CI.
+/_site/

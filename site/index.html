@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vyuhbhed — your notice period, run like a campaign</title>
+<meta name="description" content="A job-hunt coach that runs on your phone. One plan every morning, mock interviews that score you, a resume that gets read. Free, offline by default, English and Hindi.">
+<link rel="canonical" href="https://pallavsharmaofficial.github.io/vyuhbhed/">
+<meta name="theme-color" content="#171320">
+<link rel="icon" href="app/favicon.png">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vyuhbhed — your notice period, run like a campaign">
+<meta property="og:description" content="One plan every morning, mock interviews that score you, a resume that gets read, and a coach for the bad afternoons. Runs on your phone. Free, offline by default.">
+<meta property="og:image" content="https://pallavsharmaofficial.github.io/vyuhbhed/img/today.jpg">
+<meta property="og:locale" content="en_IN">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vyuhbhed — your notice period, run like a campaign">
+<meta name="twitter:description" content="A job-hunt coach that runs on your phone. Free, offline, English and Hindi.">
+<meta name="twitter:image" content="https://pallavsharmaofficial.github.io/vyuhbhed/img/today.jpg">
+
+<style>
+@font-face{font-family:Sora;src:url(fonts/Sora-Variable.ttf) format('truetype-variations');font-weight:100 800;font-display:swap}
+@font-face{font-family:SourceSerif;src:url(fonts/SourceSerif4-Variable.ttf) format('truetype-variations');font-weight:200 900;font-display:swap}
+
+:root{
+  --bg:#F7F5F9; --ink:#221D2B; --ink2:#5B5468;
+  --plum:#7A4C8C; --rose:#B5426E; --sage:#4F7A66; --line:#221D2B1f;
+  --card:#ffffffa8;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#171320;--ink:#F1ECF5;--ink2:#B3A9C0;--plum:#B58AC7;--rose:#E07AA0;--sage:#8FC2A6;--line:#F1ECF524;--card:#ffffff14}
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:SourceSerif,Georgia,serif;font-size:17px;line-height:1.6;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3,.sans{font-family:Sora,-apple-system,system-ui,sans-serif;letter-spacing:-.02em}
+a{color:inherit}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.hero{padding:72px 0 40px;text-align:center}
+.mark{width:56px;height:56px;border-radius:50%;display:inline-flex;align-items:center;
+  justify-content:center;border:1px solid var(--line);background:var(--card);margin-bottom:22px}
+.mark svg{width:24px;height:24px;stroke:var(--rose);fill:none;stroke-width:2}
+h1{font-size:clamp(34px,6vw,60px);font-weight:700;line-height:1.05;margin:0 0 6px}
+.deva{font-size:clamp(15px,2.2vw,19px);color:var(--ink2);margin:0 0 20px}
+.lede{font-size:clamp(17px,2.3vw,21px);color:var(--ink2);max-width:34ch;margin:0 auto 30px}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:12px}
+.btn{display:inline-block;padding:15px 26px;border-radius:14px;text-decoration:none;
+  font-family:Sora,sans-serif;font-weight:600;font-size:16px;border:1px solid transparent}
+.btn-primary{background:var(--rose);color:#fff;box-shadow:0 10px 28px #b5426e40}
+.btn-ghost{background:var(--card);border-color:var(--line);color:var(--ink)}
+.note{font-size:14px;color:var(--ink2);margin-top:6px}
+.note b{font-weight:600;color:var(--ink)}
+
+.shots{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;padding:34px 0 10px}
+.shots figure{margin:0;width:260px}
+.shots img{width:100%;border-radius:20px;border:1px solid var(--line);
+  box-shadow:0 24px 60px #140c1e26;display:block}
+.shots figcaption{font-size:14px;color:var(--ink2);text-align:center;margin-top:10px}
+
+section{padding:56px 0;border-top:1px solid var(--line)}
+h2{font-size:clamp(24px,3.6vw,34px);font-weight:700;margin:0 0 8px}
+.sub{color:var(--ink2);margin:0 0 30px;max-width:52ch}
+.steps{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(215px,1fr))}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.step .n{font-family:Sora,sans-serif;font-size:13px;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--plum);margin-bottom:8px}
+.step h3{font-size:18px;margin:0 0 6px;font-weight:600}
+.step p{margin:0;font-size:15px;color:var(--ink2)}
+.two{display:grid;gap:26px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.two p{color:var(--ink2)}
+.two strong{color:var(--ink);font-weight:600}
+footer{padding:40px 0 64px;border-top:1px solid var(--line);font-size:14px;color:var(--ink2)}
+footer a{margin-right:18px}
+.disclaim{max-width:56ch;margin-top:14px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M4 21V4h9l-1 3h8l-2 4 2 4h-8v6"/></svg>
+    </div>
+    <h1>Your notice period,<br>run like a campaign.</h1>
+    <p class="deva" lang="hi">आपका नोटिस पीरियड — एक अभियान की तरह।</p>
+    <p class="lede">One plan every morning, mock interviews that score you, a resume
+      that gets read, and a coach for the bad afternoons.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="app/">Try it in your browser</a>
+      <a class="btn btn-ghost" href="https://github.com/pallavsharmaofficial/vyuhbhed/releases/latest">Download for Android</a>
+    </div>
+    <p class="note">Free. No account. <b>Works offline.</b> English and Hindi.</p>
+  </header>
+
+  <div class="shots">
+    <figure><img src="img/welcome.jpg" width="420" height="868" alt="Vyuhbhed welcome screen" loading="lazy">
+      <figcaption>Start in English or Hindi</figcaption></figure>
+    <figure><img src="img/today.jpg" width="420" height="868" alt="The Today screen showing the next action and an energy check-in" loading="lazy">
+      <figcaption>One screen. One next thing.</figcaption></figure>
+    <figure><img src="img/practice.jpg" width="420" height="868" alt="Mock interview practice screen" loading="lazy">
+      <figcaption>Mock rounds, scored</figcaption></figure>
+  </div>
+
+  <section>
+    <h2>Four things a day</h2>
+    <p class="sub">The app tells you which one is next, so the hard part is never
+      deciding what to do. That is the whole method.</p>
+    <div class="steps">
+      <div class="step"><div class="n">First</div><h3>Check in</h3>
+        <p>Thirty seconds on your energy. A low day gets a different plan, not a guilt trip.</p></div>
+      <div class="step"><div class="n">Then</div><h3>Applications</h3>
+        <p>Hit the count you set. That counter is the only score that matters this month.</p></div>
+      <div class="step"><div class="n">Then</div><h3>One mock</h3>
+        <p>HR, technical or managerial. Scored on structure and specificity, with a stronger version of your answer.</p></div>
+      <div class="step"><div class="n">Last</div><h3>Learn one thing</h3>
+        <p>For the role you are actually targeting. Tick it and close the app.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>It runs on your phone</h2>
+    <div class="two">
+      <div>
+        <p><strong>Offline by default.</strong> The coach is a model you download
+          once and run on the device. No account, no server, nobody reading along.
+          Delete the app and it is all gone.</p>
+        <p><strong>Online only if you say so.</strong> Paste your own Gemini key in
+          Settings for sharper answers — then, and only then, your text leaves the
+          phone. The app tells you which engine is answering instead of pretending.</p>
+      </div>
+      <div>
+        <p><strong>Your applications stay yours.</strong> The tracker, the journal,
+          your profile and every mock you have ever done sit in one file on your
+          phone. There is nowhere else to look for them.</p>
+        <p><strong>Open source.</strong> The privacy claim above is checkable —
+          <a href="https://github.com/pallavsharmaofficial/vyuhbhed">read the code</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <a href="app/">Web app</a>
+    <a href="https://github.com/pallavsharmaofficial/vyuhbhed">GitHub</a>
+    <a href="https://github.com/pallavsharmaofficial/vyuhbhed/releases/latest">Releases</a>
+    <a href="app/privacy.html">Privacy</a>
+    <p class="disclaim">Vyuhbhed is a planning and practice tool. It does not
+      guarantee interviews or offers, and its advice can be wrong — check anything
+      that matters against a real person.</p>
+  </footer>
+</div>
+
+</body>
+</html>

@@ -6,8 +6,8 @@
 class AppInfo {
   AppInfo._();
 
-  static const version = '0.1.0';
-  static const buildNumber = 1;
+  static const version = '0.2.0';
+  static const buildNumber = 2;
 
   static const displayVersion = '$version ($buildNumber)';
 

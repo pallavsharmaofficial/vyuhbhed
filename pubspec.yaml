@@ -4,7 +4,7 @@ publish_to: "none"
 
 # versionName+versionCode for both stores. Bump the build number on every
 # TestFlight / Play internal upload.
-version: 0.1.0+1
+version: 0.2.0+2
 
 environment:
   sdk: ">=3.4.0 <4.0.0"

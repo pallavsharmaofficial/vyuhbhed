@@ -36,22 +36,33 @@ jobs:
 
       - run: flutter pub get
 
-      - name: Build web
-        # The repo name becomes the path segment on GitHub Pages.
+      - name: Build web app
+        # The Flutter app is served from /<repo>/app/, so the landing page can
+        # own the root. Without the right base-href every asset 404s.
         run: |
           flutter build web --release \
-            --base-href "/${GITHUB_REPOSITORY#*/}/" \
-            --no-wasm-dry-run
+            --base-href "/${GITHUB_REPOSITORY#*/}/app/" \
+            --no-wasm-dry-run \
+            ${{ vars.SAATH_MODEL_BASE_URL && format('--dart-define=SAATH_MODEL_BASE_URL={0}', vars.SAATH_MODEL_BASE_URL) || '' }} \
+            ${{ vars.SAATH_MODEL_IDS && format('--dart-define=SAATH_MODEL_IDS={0}', vars.SAATH_MODEL_IDS) || '' }} \
+            ${{ vars.SAATH_SUPPORT_URL && format('--dart-define=SAATH_SUPPORT_URL={0}', vars.SAATH_SUPPORT_URL) || '' }}
 
-      - name: SPA fallback
-        # GitHub Pages has no rewrite rules, so a deep link like /untangle
-        # would 404. Serving index.html as the 404 page hands the route back
-        # to go_router instead.
-        run: cp build/web/index.html build/web/404.html
+      - name: Assemble the site
+        # site/  -> /            the landing page a stranger sees first
+        # app/   -> /app/        the Flutter build
+        run: |
+          mkdir -p _site
+          cp -R site/. _site/
+          mkdir -p _site/app
+          cp -R build/web/. _site/app/
+          # GitHub Pages has no rewrite rules, so a deep link like /app/practice
+          # would 404. Handing it index.html gives the route back to go_router.
+          cp build/web/index.html _site/404.html
+          cp build/web/index.html _site/app/404.html
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          path: _site
 
   deploy:
     needs: build
