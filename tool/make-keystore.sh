@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Creates the upload keystore that signs every Android release of Saath.
+# Creates the upload keystore that signs every Android release of Vyuhbhed.
 #
 # Costs nothing. Takes a minute. Run it once, ever.
 #
@@ -11,7 +11,7 @@
 # to your own users — they would have to uninstall and reinstall a different
 # listing. Back up BOTH files produced here, somewhere that is not this laptop:
 #
-#   ~/.saath/upload-keystore.jks   the key itself
+#   ~/.vyuhbhed/upload-keystore.jks   the key itself
 #   android/key.properties         the passwords, git-ignored
 #
 # (Play App Signing gives you a recovery path, but only if you enrol before
@@ -19,7 +19,7 @@
 
 set -euo pipefail
 
-KEYSTORE_DIR="${HOME}/.saath"
+KEYSTORE_DIR="${HOME}/.vyuhbhed"
 KEYSTORE="${KEYSTORE_DIR}/upload-keystore.jks"
 PROPS="$(cd "$(dirname "$0")/.." && pwd)/android/key.properties"
 
@@ -41,7 +41,7 @@ command -v keytool >/dev/null 2>&1 || {
 mkdir -p "$KEYSTORE_DIR"
 chmod 700 "$KEYSTORE_DIR"
 
-echo "Creating an upload key for Saath."
+echo "Creating an upload key for Vyuhbhed."
 echo "Pick a password you can find again in two years. Write it down."
 echo
 read -r -s -p "Keystore password: " PASS; echo
@@ -58,7 +58,7 @@ keytool -genkeypair \
   -storetype JKS \
   -storepass "$PASS" \
   -keypass "$PASS" \
-  -dname "CN=Saath, OU=Saath, O=Saath, L=, ST=, C=IN"
+  -dname "CN=Vyuhbhed, OU=Vyuhbhed, O=Vyuhbhed, L=, ST=, C=IN"
 
 chmod 600 "$KEYSTORE"
 
