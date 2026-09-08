@@ -200,48 +200,48 @@ class _IntroSlide extends StatelessWidget {
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: constraints.maxHeight - 16),
           child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Frost(
-            color: surface.glassSoft,
-            borderRadius: BorderRadius.circular(28),
-            border: BoxSide(surface.glassBorder),
-            padding: const EdgeInsets.all(14),
-            child: Icon(icon, color: accent, size: 28),
-          ),
-          const SizedBox(height: 18),
-          Semantics(
-            header: true,
-            child: Text(title, style: t.displayLarge),
-          ),
-          const SizedBox(height: 14),
-          if (body != null)
-            Text(
-              body!,
-              style: t.bodyLarge?.copyWith(
-                color: surface.ink2,
-                fontStyle: bodyItalic ? FontStyle.italic : FontStyle.normal,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Frost(
+                color: surface.glassSoft,
+                borderRadius: BorderRadius.circular(28),
+                border: BoxSide(surface.glassBorder),
+                padding: const EdgeInsets.all(14),
+                child: Icon(icon, color: accent, size: 28),
               ),
-            ),
-          for (final (i, line) in lines) ...[
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 3),
-                  child: Icon(i, size: 18, color: accent),
+              const SizedBox(height: 18),
+              Semantics(
+                header: true,
+                child: Text(title, style: t.displayLarge),
+              ),
+              const SizedBox(height: 14),
+              if (body != null)
+                Text(
+                  body!,
+                  style: t.bodyLarge?.copyWith(
+                    color: surface.ink2,
+                    fontStyle: bodyItalic ? FontStyle.italic : FontStyle.normal,
+                  ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Text(line,
-                      style: t.bodyLarge?.copyWith(color: surface.ink2)),
+              for (final (i, line) in lines) ...[
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 3),
+                      child: Icon(i, size: 18, color: accent),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(line,
+                          style: t.bodyLarge?.copyWith(color: surface.ink2)),
+                    ),
+                  ],
                 ),
+                const SizedBox(height: 10),
               ],
-            ),
-            const SizedBox(height: 10),
-          ],
-        ],
+            ],
           ),
         ),
       ),
@@ -269,7 +269,8 @@ class _Dots extends StatelessWidget {
               behavior: HitTestBehavior.opaque,
               onTap: () => onTap(i),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 3, vertical: 12),
                 child: AnimatedContainer(
                   duration: context.reduceMotion
                       ? Duration.zero

@@ -62,7 +62,8 @@ class PulseWeek {
       days: days,
       untangles: journal
           .where((e) =>
-              (e.kind == JournalKind.untangle || e.kind == JournalKind.repair) &&
+              (e.kind == JournalKind.untangle ||
+                  e.kind == JournalKind.repair) &&
               e.createdAt.isAfter(cutoff))
           .length,
     );

@@ -1,5 +1,5 @@
 name: vyuhbhed
-description: "Saath — an on-device AI relationship counsellor. Free, private, offline."
+description: "Vyuhbhed — a notice-period coach: daily plan, mock interviews, resume review, job search. On your phone."
 publish_to: "none"
 
 # versionName+versionCode for both stores. Bump the build number on every
@@ -22,6 +22,7 @@ dependencies:
   # Dials the helplines on the safety screen. Only reaches outside the app
   # when the user taps a helpline.
   url_launcher: ^6.3.0
+  http: ^1.2.2
 
   # The on-device counsellor. LiteRT-LM engine, per the launch plan.
   # flutter_gemma downloads the model once, on the user's say-so, and every

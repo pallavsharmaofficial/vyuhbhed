@@ -38,8 +38,8 @@ class S {
   String _t(String en, String hi) => _lang == AppLanguage.hi ? hi : en;
 
   // ── Identity ──────────────────────────────────────────────────────────────
-  String get appName => 'Saath';
-  String get appNameDevanagari => 'साथ';
+  String get appName => 'Vyuhbhed';
+  String get appNameDevanagari => 'व्यूहभेद';
   String get tagline => _t(
       'Most problems are simple. Your brain makes them big.',
       'ज़्यादातर मसले आसान होते हैं। दिमाग़ उन्हें बड़ा बना देता है।');
@@ -53,12 +53,12 @@ class S {
 
   // ── Web build ─────────────────────────────────────────────────────────────
   String get webPreviewBanner => _t(
-        'A preview. The counsellor here gives sample replies — the real one runs on your phone, offline.',
-        'यह एक झलक है। यहाँ काउंसलर के जवाब नमूने हैं — असली काउंसलर आपके फ़ोन पर, बिना इंटरनेट चलता है।',
+        'A preview. The coach here gives sample replies — the real one runs on your phone, offline.',
+        'यह एक झलक है। यहाँ कोच के जवाब नमूने हैं — असली कोच आपके फ़ोन पर, बिना इंटरनेट चलता है।',
       );
   String get webPreviewShort => _t(
-        'Preview — sample replies, not the real counsellor.',
-        'झलक — नमूने के जवाब, असली काउंसलर नहीं।',
+        'Preview — sample replies, not the real coach.',
+        'झलक — नमूने के जवाब, असली कोच नहीं।',
       );
   String get webWhyNoModel => _t(
         'The counsellor is a model that runs on your phone. A browser is the wrong place for a download that size, so this preview uses written sample replies instead. Everything else here is the real app.',
@@ -89,8 +89,8 @@ class S {
   // ── Onboarding ────────────────────────────────────────────────────────────
   // Intro slides on the welcome screen. Swipeable; the start buttons stay
   // visible under every slide so nobody is forced to read them.
-  String get introPrivateTitle =>
-      _t('Nothing you say leaves your phone.', 'आप जो कहते हैं, फ़ोन से बाहर नहीं जाता।');
+  String get introPrivateTitle => _t('Nothing you say leaves your phone.',
+      'आप जो कहते हैं, फ़ोन से बाहर नहीं जाता।');
   String get introPrivateBody => _t(
       'The counsellor is a small AI model downloaded once and run on the phone itself. No account, no server, nobody reading along. Delete the app and it is all gone.',
       'काउंसलर एक छोटा AI मॉडल है जो एक बार डाउनलोड होकर फ़ोन पर ही चलता है। न कोई खाता, न सर्वर, न कोई पढ़ने वाला। ऐप हटाइए, सब मिट जाता है।');
@@ -105,8 +105,8 @@ class S {
   String get introPulse => _t(
       'Weekly pulse — a one-tap daily check-in and a Sunday reflection.',
       'साप्ताहिक नब्ज़ — रोज़ एक टैप की जाँच और रविवार को एक सोच।');
-  String get introOriginTitle =>
-      _t('It remembers why you two started.', 'यह याद रखता है कि आप दोनों ने शुरुआत क्यों की।');
+  String get introOriginTitle => _t('It remembers why you two started.',
+      'यह याद रखता है कि आप दोनों ने शुरुआत क्यों की।');
   String get introOriginBody => _t(
       'You write, once, why you chose each other. Every hard conversation ends by coming back to it.',
       'आप एक बार लिखते हैं कि आपने एक-दूसरे को क्यों चुना। हर मुश्किल बातचीत उसी पर लौटकर ख़त्म होती है।');
@@ -150,11 +150,10 @@ class S {
       'बोलकर कहने की सुविधा ऑन-डिवाइस मॉडल के साथ आएगी। अभी टाइप करें।');
 
   // ── The on-device model ───────────────────────────────────────────────────
-  String get modelTitle =>
-      _t('Bring the counsellor home', 'काउंसलर को घर ले आइए');
+  String get modelTitle => _t('Bring the coach home', 'कोच को घर ले आइए');
   String get modelBody => _t(
-        'Saath’s counsellor is a model that runs on this phone. Download it once and it never needs the internet again — and nothing you say ever leaves the device.',
-        'साथ का काउंसलर एक मॉडल है जो इसी फ़ोन पर चलता है। एक बार डाउनलोड कीजिए, फिर कभी इंटरनेट की ज़रूरत नहीं — और आपकी कोई बात फ़ोन से बाहर नहीं जाती।',
+        'The coach is a model that runs on this phone. Download it once and it never needs the internet again — and nothing you type leaves the device.',
+        'कोच एक मॉडल है जो इसी फ़ोन पर चलता है। एक बार डाउनलोड कीजिए, फिर कभी इंटरनेट की ज़रूरत नहीं — और आपकी कोई बात फ़ोन से बाहर नहीं जाती।',
       );
   String modelSize(String size) => _t('$size download', '$size डाउनलोड');
   String get modelWifiLabel => _t('Before you start', 'शुरू करने से पहले');
@@ -172,11 +171,11 @@ class S {
   String get modelCancel => _t('Cancel download', 'डाउनलोड रोकें');
   String get modelLater => _t('Not now', 'अभी नहीं');
   String get modelSkipNote => _t(
-        'You can start without it. Everything except the counsellor works today, and this is here in Settings whenever you want it.',
-        'आप इसके बिना भी शुरू कर सकते हैं। काउंसलर को छोड़कर बाक़ी सब आज भी चलता है, और यह सेटिंग्स में हमेशा मौजूद रहेगा।',
+        'You can start without it. Planning and tracking work today; the coach gives sample replies until a model is here or you add a Gemini key in Settings.',
+        'आप इसके बिना भी शुरू कर सकते हैं। योजना और ट्रैकिंग आज भी चलती है; मॉडल या Gemini key आने तक कोच नमूना जवाब देगा।',
       );
   String get modelReady =>
-      _t('The counsellor is on your phone', 'काउंसलर आपके फ़ोन पर है');
+      _t('The coach is on your phone', 'कोच आपके फ़ोन पर है');
   String modelReadyBody(String name) => _t(
         '$name is running here, offline. Nothing you say to it is sent anywhere.',
         '$name यहीं चल रहा है, बिना इंटरनेट। आप जो कहेंगे वह कहीं नहीं भेजा जाएगा।',
@@ -260,8 +259,8 @@ class S {
   String get savedForToday => _t('Saved for today.', 'आज के लिए सहेजा गया।');
   String get talkToSaath => _t('Talk to Saath', 'साथ से बात करें');
   String get undo => _t('Undo', 'वापस लाएँ');
-  String get talkPreviewChip =>
-      _t('Sample replies · get the real counsellor', 'नमूना जवाब · असली काउंसलर लाएँ');
+  String get talkPreviewChip => _t('Sample replies · get the real counsellor',
+      'नमूना जवाब · असली काउंसलर लाएँ');
   String get firstDayTitle => _t('Your first day here', 'यहाँ आपका पहला दिन');
   String get firstDayBody => _t(
       'Two small things are enough today: tap how connected you feel, and tell Saath one thing that is on your mind. Everything else follows from those.',
@@ -403,8 +402,8 @@ class S {
       'बीस मिनट पूरे। अब लौट सकते हैं।');
   String get backToRoom => _t('Back to the room', 'रूम में वापस');
   String coolDownPreset(int minutes) => _t('$minutes min', '$minutes मिनट');
-  String get repairSavedToJournal =>
-      _t('This room is saved in your journal.', 'यह रूम आपकी डायरी में सहेजा गया है।');
+  String get repairSavedToJournal => _t('This room is saved in your journal.',
+      'यह रूम आपकी डायरी में सहेजा गया है।');
   String get repaired => _t('Repaired', 'सुलझ गया');
   String get repairedTitle => _t('You both stayed. That is the whole thing.',
       'आप दोनों टिके रहे। बस यही सब कुछ है।');
@@ -512,8 +511,8 @@ class S {
       'इसके लिए पेयरिंग चाहिए — कपल-लेयर बिल्ड में।');
 
   // ── Learn ─────────────────────────────────────────────────────────────────
-  String learnCount(int shown, int total) => _t(
-      'Learn · $shown of $total done', 'सीखें · $total में से $shown पूरे');
+  String learnCount(int shown, int total) =>
+      _t('Learn · $shown of $total done', 'सीखें · $total में से $shown पूरे');
   String get learnTitle =>
       _t('Small ideas, big fights', 'छोटे विचार, बड़े झगड़े');
   String get twoMinuteExercise => _t('2-minute exercise', '2 मिनट का अभ्यास');
@@ -573,19 +572,21 @@ class S {
   String get helplines => _t('Helplines', 'हेल्पलाइन');
 
   // ── App lock ──────────────────────────────────────────────────────────────
-  String get appLock => _t('Lock Saath', 'साथ को लॉक करें');
+  String get appLock => _t('Lock $appName', '$appNameDevanagari को लॉक करें');
   String get appLockBody => _t(
-        'Ask for your face, fingerprint or passcode before opening Saath. Worth turning on if anyone else can pick up your phone.',
-        'साथ खोलने से पहले चेहरा, उँगली या पासकोड माँगे। अगर आपका फ़ोन कोई और भी उठा सकता है, तो इसे चालू रखिए।',
+        'Ask for your face, fingerprint or passcode before opening $appName. Worth turning on if anyone else can pick up your phone.',
+        '$appNameDevanagari खोलने से पहले चेहरा, उँगली या पासकोड माँगे। अगर आपका फ़ोन कोई और भी उठा सकता है, तो इसे चालू रखिए।',
       );
   String get appLockOn => _t('On', 'चालू');
   String get appLockOff => _t('Off', 'बंद');
-  String get appLockPrompt => _t('Unlock Saath', 'साथ को अनलॉक करें');
+  String get appLockPrompt =>
+      _t('Unlock $appName', '$appNameDevanagari को अनलॉक करें');
   String get appLockUnlock => _t('Unlock', 'अनलॉक करें');
-  String get appLockLocked => _t('Saath is locked', 'साथ लॉक है');
+  String get appLockLocked =>
+      _t('$appName is locked', '$appNameDevanagari लॉक है');
   String get appLockUnavailable => _t(
-        'This phone has no screen lock set up, so Saath has nothing to check against.',
-        'इस फ़ोन में कोई स्क्रीन लॉक सेट नहीं है, इसलिए साथ के पास जाँचने को कुछ नहीं।',
+        'This phone has no screen lock set up, so $appName has nothing to check against.',
+        'इस फ़ोन में कोई स्क्रीन लॉक सेट नहीं है, इसलिए $appNameDevanagari के पास जाँचने को कुछ नहीं।',
       );
   String get appLockFailed => _t('That did not match. Try again.',
       'यह मेल नहीं खाया। दोबारा कोशिश कीजिए।');
@@ -636,7 +637,8 @@ class S {
   String get notTherapist => _t(
       'Saath is not a licensed therapist and does not diagnose. In an emergency, call 112.',
       'साथ लाइसेंस-प्राप्त थेरेपिस्ट नहीं है और न ही कोई निदान करता है। आपात स्थिति में 112 पर कॉल करें।');
-  String versionLine(String version) => _t('Saath $version', 'साथ $version');
+  String versionLine(String version) =>
+      _t('$appName $version', '$appNameDevanagari $version');
   String get licences => _t('Licences', 'लाइसेंस');
   String helplinesVerified(String date) =>
       _t('Helplines verified $date', 'हेल्पलाइन $date को जाँची गईं');

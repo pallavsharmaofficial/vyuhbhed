@@ -190,11 +190,13 @@ void main() {
 
   test('an impossible calendar day is rejected on load', () {
     expect(
-      ImportantDate.fromJson({'id': 'x', 'label': 'oops', 'month': 2, 'day': 30}),
+      ImportantDate.fromJson(
+          {'id': 'x', 'label': 'oops', 'month': 2, 'day': 30}),
       isNull,
     );
     expect(
-      ImportantDate.fromJson({'id': 'x', 'label': 'leap', 'month': 2, 'day': 29}),
+      ImportantDate.fromJson(
+          {'id': 'x', 'label': 'leap', 'month': 2, 'day': 29}),
       isNotNull,
     );
   });

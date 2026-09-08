@@ -261,7 +261,8 @@ class _RepairMergedScreenState extends ConsumerState<RepairMergedScreen> {
     ref.read(journalProvider.notifier).add(
           kind: JournalKind.repair,
           title: m.title,
-          body: '${s.youBothAgree}: ${m.agreed}\n\n${s.storiesSplit}: ${m.split}',
+          body:
+              '${s.youBothAgree}: ${m.agreed}\n\n${s.storiesSplit}: ${m.split}',
           ask: m.firstTurn,
         );
   }

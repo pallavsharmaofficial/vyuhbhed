@@ -229,7 +229,12 @@ class LearnProgress extends StateNotifier<Set<String>> {
     if (raw == null || raw.isEmpty) return const {};
     try {
       final list = jsonDecode(raw);
-      return list is List ? {for (final t in list) if (t is String) t} : const {};
+      return list is List
+          ? {
+              for (final t in list)
+                if (t is String) t
+            }
+          : const {};
     } on FormatException {
       return const {};
     }
@@ -248,8 +253,7 @@ class LearnProgress extends StateNotifier<Set<String>> {
   }
 }
 
-final learnProgressProvider =
-    StateNotifierProvider<LearnProgress, Set<String>>(
+final learnProgressProvider = StateNotifierProvider<LearnProgress, Set<String>>(
   (ref) => LearnProgress(ref.watch(keyValueStoreProvider)),
 );
 
@@ -259,7 +263,6 @@ class LearnScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final s = S.of(context, ref);
-    final hindi = s.isHindi;
     final t = Theme.of(context).textTheme;
     final surface = context.surface;
     final done = ref.watch(learnProgressProvider);
@@ -334,7 +337,8 @@ class _LearnCardViewState extends ConsumerState<_LearnCardView> {
               if (widget.done)
                 Padding(
                   padding: const EdgeInsets.only(left: 8, top: 2),
-                  child: Icon(Icons.check_circle_rounded, size: 20, color: sage),
+                  child:
+                      Icon(Icons.check_circle_rounded, size: 20, color: sage),
                 ),
             ],
           ),

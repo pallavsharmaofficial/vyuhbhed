@@ -215,8 +215,8 @@ void main() {
     final store = InMemoryStore();
     final c1 = ProviderContainer(overrides: [
       keyValueStoreProvider.overrideWithValue(store),
-      counsellorEngineProvider
-          .overrideWithValue(const MockCounsellorEngine(tokenDelay: Duration.zero)),
+      counsellorEngineProvider.overrideWithValue(
+          const MockCounsellorEngine(tokenDelay: Duration.zero)),
     ]);
     addTearDown(c1.dispose);
     await c1.read(chatControllerProvider.notifier).send('we keep fighting');
@@ -225,8 +225,8 @@ void main() {
     // A fresh container over the same store is what a cold start looks like.
     final c2 = ProviderContainer(overrides: [
       keyValueStoreProvider.overrideWithValue(store),
-      counsellorEngineProvider
-          .overrideWithValue(const MockCounsellorEngine(tokenDelay: Duration.zero)),
+      counsellorEngineProvider.overrideWithValue(
+          const MockCounsellorEngine(tokenDelay: Duration.zero)),
     ]);
     addTearDown(c2.dispose);
     final restored = c2.read(chatControllerProvider);
@@ -259,8 +259,8 @@ void main() {
     final store = InMemoryStore();
     final c = ProviderContainer(overrides: [
       keyValueStoreProvider.overrideWithValue(store),
-      counsellorEngineProvider
-          .overrideWithValue(const MockCounsellorEngine(tokenDelay: Duration.zero)),
+      counsellorEngineProvider.overrideWithValue(
+          const MockCounsellorEngine(tokenDelay: Duration.zero)),
     ]);
     addTearDown(c.dispose);
     final ctrl = c.read(chatControllerProvider.notifier);

@@ -9,6 +9,7 @@ import 'package:vyuhbhed/app/router.dart';
 import 'package:vyuhbhed/core/app_state.dart';
 import 'package:vyuhbhed/core/key_value_store.dart';
 import 'package:vyuhbhed/features/counsellor/engine.dart';
+import 'package:vyuhbhed/features/coach/coach_engine.dart';
 import 'package:vyuhbhed/features/counsellor/model/model_catalogue.dart';
 import 'package:vyuhbhed/features/counsellor/model/model_manager.dart';
 import 'package:vyuhbhed/theme/theme.dart';
@@ -30,6 +31,8 @@ class TestApp {
       overrides: [
         keyValueStoreProvider.overrideWithValue(store),
         counsellorEngineProvider.overrideWithValue(engine),
+        coachEngineProvider
+            .overrideWithValue(MockCoachEngine(delay: Duration.zero)),
         // Nothing in a test may reach the native inference engine or start a
         // multi-gigabyte download.
         modelRuntimeProvider.overrideWithValue(this.runtime),
@@ -137,10 +140,23 @@ Finder findEyebrow(String label) =>
 /// the viewport, so the finder succeeds while the widget is still below the
 /// fold and `tap()` lands on empty space with only a warning. `ensureVisible`
 /// is what actually scrolls it into view.
+/// A multi-line TextField carries its own Scrollable, so picking one by index
+/// is a coin flip on any screen with a text box — scrolling the wrong one
+/// moves nothing and `dragUntilVisible` eventually throws "No element". Each
+/// candidate is tried in turn instead.
 Future<void> tapVisible(WidgetTester tester, Finder finder) async {
   if (finder.evaluate().isEmpty) {
-    await tester.scrollUntilVisible(finder, 240,
-        scrollable: find.byType(Scrollable).last);
+    final scrollables = find.byType(Scrollable);
+    final count = scrollables.evaluate().length;
+    for (var i = 0; i < count; i++) {
+      try {
+        await tester.scrollUntilVisible(finder, 240,
+            scrollable: scrollables.at(i));
+        break;
+      } on Object {
+        if (i == count - 1) rethrow;
+      }
+    }
   }
   await tester.ensureVisible(finder);
   await tester.pumpAndSettle();

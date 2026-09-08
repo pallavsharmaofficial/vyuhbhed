@@ -102,10 +102,10 @@ void main() {
   });
 
   test('the app name is not translated', () {
-    // "Saath" is the brand; the Devanagari form sits beside it, not instead.
-    expect(en.appName, 'Saath');
-    expect(hi.appName, 'Saath');
-    expect(hi.appNameDevanagari, 'साथ');
+    // "Vyuhbhed" is the brand; the Devanagari form sits beside it, not instead.
+    expect(en.appName, 'Vyuhbhed');
+    expect(hi.appName, 'Vyuhbhed');
+    expect(hi.appNameDevanagari, 'व्यूहभेद');
   });
 
   test('the download percentage is a number, not the literal placeholder', () {

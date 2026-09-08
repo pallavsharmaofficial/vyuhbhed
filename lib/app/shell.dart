@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../core/strings.dart';
+import '../features/coach/coach_strings.dart';
 import '../ui/glass.dart';
 
-/// Tab shell: the floating glass tab bar over whichever tab is active.
+/// Tab shell: Today, Track, Practice, Coach.
 class AppShell extends ConsumerWidget {
   const AppShell({super.key, required this.navigationShell});
   final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final s = S.of(context, ref);
+    final t = T.of(context, ref);
     return Scaffold(
       extendBody: true,
       body: navigationShell,
@@ -20,15 +20,13 @@ class AppShell extends ConsumerWidget {
         index: navigationShell.currentIndex,
         onChanged: (i) => navigationShell.goBranch(
           i,
-          // Tapping the tab you are already on pops that branch back to its
-          // root, which is what both platforms' users expect.
           initialLocation: i == navigationShell.currentIndex,
         ),
         items: [
-          (icon: Icons.home_outlined, label: s.tabToday),
-          (icon: Icons.chat_bubble_outline_rounded, label: s.tabCounsellor),
-          (icon: Icons.people_outline_rounded, label: s.tabUs),
-          (icon: Icons.menu_book_outlined, label: s.tabLearn),
+          (icon: Icons.today_outlined, label: t.tabToday),
+          (icon: Icons.view_kanban_outlined, label: t.tabTrack),
+          (icon: Icons.record_voice_over_outlined, label: t.tabPractice),
+          (icon: Icons.support_agent_rounded, label: t.tabCoach),
         ],
       ),
     );

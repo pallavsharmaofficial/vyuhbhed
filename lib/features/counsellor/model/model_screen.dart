@@ -153,7 +153,9 @@ class ModelScreen extends ConsumerWidget {
                     const SizedBox(height: 10),
                     // Web/unsupported outside onboarding used to render no
                     // button at all — only the back arrow got you out.
-                    if (model.hasModel || duringOnboarding || !modelSupportedHere)
+                    if (model.hasModel ||
+                        duringOnboarding ||
+                        !modelSupportedHere)
                       GlassButton(
                         // "Not now" implies something to postpone. On web
                         // there is nothing to postpone.

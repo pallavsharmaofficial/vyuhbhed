@@ -1,4 +1,4 @@
-# Releasing Saath
+# Releasing Vyuhbhed
 
 Everything here is reproducible from a clean checkout. Nothing in this file
 assumes a machine that has built the app before.
@@ -9,7 +9,7 @@ assumes a machine that has built the app before.
 |---|---|
 | iOS bundle ID | `in.saathhamesha.app` |
 | Android application ID | `in.saathhamesha.app` |
-| Store name | Saath |
+| Store name | Vyuhbhed |
 | Minimum iOS | 16.0 |
 | Minimum Android | API 29 (Android 10) |
 | Orientation | Portrait only, both platforms |

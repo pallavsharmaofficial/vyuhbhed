@@ -51,7 +51,8 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
     if (body.isEmpty) return;
     // First line becomes the list title; the whole text is the body.
     final firstLine = body.split('\n').first.trim();
-    final title = firstLine.length > 80 ? '${firstLine.substring(0, 77)}…' : firstLine;
+    final title =
+        firstLine.length > 80 ? '${firstLine.substring(0, 77)}…' : firstLine;
     await ref
         .read(journalProvider.notifier)
         .add(kind: JournalKind.note, title: title, body: body);
@@ -72,7 +73,10 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
     final format = DateFormat('d MMM, h:mm a', app.language.code);
     final entries = _filter == null
         ? all
-        : [for (final e in all) if (e.themes.contains(_filter)) e];
+        : [
+            for (final e in all)
+              if (e.themes.contains(_filter)) e
+          ];
     // Month headers once the list is long enough to need orientation.
     final monthFormat = DateFormat('MMMM yyyy', app.language.code);
     final showMonths = entries.length > 8;
@@ -133,16 +137,18 @@ class _JournalScreenState extends ConsumerState<JournalScreen> {
                             Text(
                               s.journalFilterEmpty(
                                   JournalScreen.themeLabel(s, _filter!)),
-                              style: t.bodyMedium?.copyWith(color: surface.ink2),
+                              style:
+                                  t.bodyMedium?.copyWith(color: surface.ink2),
                             ),
                           for (var i = 0; i < entries.length; i++) ...[
                             if (showMonths &&
                                 (i == 0 ||
                                     monthFormat.format(entries[i].createdAt) !=
-                                        monthFormat
-                                            .format(entries[i - 1].createdAt))) ...[
+                                        monthFormat.format(
+                                            entries[i - 1].createdAt))) ...[
                               Padding(
-                                padding: EdgeInsets.only(top: i == 0 ? 0 : 8, bottom: 8),
+                                padding: EdgeInsets.only(
+                                    top: i == 0 ? 0 : 8, bottom: 8),
                                 child: Eyebrow(
                                     monthFormat.format(entries[i].createdAt),
                                     color: surface.ink2),
@@ -243,8 +249,7 @@ class _EntryCardState extends ConsumerState<_EntryCard> {
       if (!mounted) return;
       ScaffoldMessenger.of(context)
         ..hideCurrentSnackBar()
-        ..showSnackBar(
-            SnackBar(content: Text(widget.s.journalReflectTimeout)));
+        ..showSnackBar(SnackBar(content: Text(widget.s.journalReflectTimeout)));
     } on Object catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context)

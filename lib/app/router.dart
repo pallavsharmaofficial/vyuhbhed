@@ -4,32 +4,46 @@ import 'package:go_router/go_router.dart';
 
 import '../core/app_state.dart';
 import '../core/strings.dart';
-import '../features/counsellor/counsellor_screen.dart';
-import '../features/counsellor/engine.dart';
 import '../features/counsellor/model/model_screen.dart';
-import '../features/couple/couple_space_screen.dart';
-import '../features/home/today_screen.dart';
-import '../features/journal/journal_screen.dart';
-import '../features/learn/learn_screen.dart';
-import '../features/onboarding/onboarding_screens.dart';
-import '../features/pulse/weekly_pulse_screen.dart';
-import '../features/repair/repair_screens.dart';
-import '../features/safety/safety_screen.dart';
-import '../features/settings/settings_screen.dart';
-import '../features/untangle/untangle_screen.dart';
+import '../features/coach/coach_engine.dart';
+import '../features/coach/coach_screen.dart';
+import '../features/coach/jobs_screen.dart';
+import '../features/coach/journal_screen.dart';
+import '../features/coach/practice_screen.dart';
+import '../features/coach/profile_screen.dart';
+import '../features/coach/resume_screen.dart';
+import '../features/coach/settings_screen.dart';
+import '../features/coach/today_screen.dart';
+import '../features/coach/track_screen.dart';
+import '../features/coach/welcome_screen.dart';
 import '../theme/theme.dart';
 import '../theme/tokens.dart';
 import '../ui/atmosphere.dart';
 import '../ui/glass.dart';
 import 'shell.dart';
 
+/// Vyuhbhed's routes. The Saath constants at the bottom exist only so the
+/// inherited screens keep compiling; nothing registers them.
 class Routes {
   Routes._();
   static const onboarding = '/onboarding';
-  static const onboardingNames = '/onboarding/names';
-  static const onboardingOrigin = '/onboarding/origin';
+  static const onboardingProfile = '/onboarding/profile';
   static const onboardingModel = '/onboarding/model';
   static const today = '/';
+  static const track = '/track';
+  static const practice = '/practice';
+  static const coach = '/coach';
+  static const mock = '/mock';
+  static const jobs = '/jobs';
+  static const resume = '/resume';
+  static const journal = '/journal';
+  static const settings = '/settings';
+  static const model = '/settings/model';
+  static const profile = '/settings/profile';
+
+  // Inherited, unregistered.
+  static const onboardingNames = '/onboarding/names';
+  static const onboardingOrigin = '/onboarding/origin';
   static const counsellor = '/counsellor';
   static const us = '/us';
   static const learn = '/learn';
@@ -40,23 +54,13 @@ class Routes {
   static const repairCoolDown = '/repair/cooldown';
   static const repairClose = '/repair/close';
   static const safety = '/safety';
-  static const settings = '/settings';
-  static const model = '/settings/model';
   static const editOrigin = '/settings/origin';
-  static const journal = '/journal';
   static const weeklyPulse = '/week';
 }
 
 final _rootKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 final _shellKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
 
-/// Bridges Riverpod state into go_router's refresh mechanism.
-///
-/// The router used to `ref.watch` the onboarding flag directly, which rebuilt
-/// the entire [GoRouter] the moment onboarding completed — while the screen
-/// that completed it was calling `context.go('/')` on the router being thrown
-/// away. A `refreshListenable` re-runs the redirect against the same router
-/// instance, which is what go_router is designed for.
 class _RouterRefresh extends ChangeNotifier {
   _RouterRefresh(Ref ref) {
     _removeListener = ref
@@ -85,8 +89,6 @@ final routerProvider = Provider<GoRouter>((ref) {
     refreshListenable: refresh,
     initialLocation:
         ref.read(appStateProvider).onboarded ? Routes.today : Routes.onboarding,
-    // Deep links and process-death restoration both land here; the redirect is
-    // the only gate, so there is no path into the app that skips onboarding.
     redirect: (context, state) {
       final onboarded = ref.read(appStateProvider).onboarded;
       final inOnboarding = state.matchedLocation.startsWith(Routes.onboarding);
@@ -98,14 +100,12 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: Routes.onboarding,
-        pageBuilder: (c, s) => _fade(const WelcomeScreen(), s),
+        pageBuilder: (c, s) => _fade(const CoachWelcomeScreen(), s),
         routes: [
           GoRoute(
-              path: 'names',
-              pageBuilder: (c, s) => _fade(const NamesScreen(), s)),
-          GoRoute(
-              path: 'origin',
-              pageBuilder: (c, s) => _fade(const OriginStoryScreen(), s)),
+              path: 'profile',
+              pageBuilder: (c, s) =>
+                  _fade(const ProfileScreen(duringOnboarding: true), s)),
           GoRoute(
               path: 'model',
               pageBuilder: (c, s) =>
@@ -119,98 +119,66 @@ final routerProvider = Provider<GoRouter>((ref) {
             navigatorKey: _shellKey,
             routes: [
               GoRoute(
-                  path: Routes.today, builder: (c, s) => const TodayScreen())
+                  path: Routes.today, builder: (c, s) => const TodayScreen()),
             ],
           ),
           StatefulShellBranch(routes: [
-            GoRoute(
-              path: Routes.counsellor,
-              builder: (c, s) => const CounsellorScreen(embedded: true),
-            ),
+            GoRoute(path: Routes.track, builder: (c, s) => const TrackScreen()),
           ]),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                  path: Routes.us, builder: (c, s) => const CoupleSpaceScreen())
-            ],
-          ),
-          StatefulShellBranch(
-            routes: [
-              GoRoute(
-                  path: Routes.learn, builder: (c, s) => const LearnScreen())
-            ],
-          ),
+          StatefulShellBranch(routes: [
+            GoRoute(
+                path: Routes.practice,
+                builder: (c, s) => const PracticeScreen()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(path: Routes.coach, builder: (c, s) => const CoachScreen()),
+          ]),
         ],
       ),
       GoRoute(
         parentNavigatorKey: _rootKey,
-        path: Routes.untangle,
-        // `extra` does not survive Android process death, so a restored route
-        // arrives with a null vent rather than crashing; the screen shows its
-        // "nothing to untangle yet" state.
-        pageBuilder: (c, s) =>
-            _fade(UntangleScreen(vent: s.extra as String? ?? ''), s),
+        path: Routes.mock,
+        // `extra` does not survive process death; fall back to the HR round.
+        pageBuilder: (c, s) => _fade(
+          MockScreen(
+              round: s.extra is InterviewRound
+                  ? s.extra! as InterviewRound
+                  : InterviewRound.hr),
+          s,
+        ),
       ),
       GoRoute(
         parentNavigatorKey: _rootKey,
-        path: Routes.repair,
-        pageBuilder: (c, s) => _fade(const RepairIntroScreen(), s),
-        routes: [
-          GoRoute(
-            path: 'merged',
-            pageBuilder: (c, s) => _fade(
-              RepairMergedScreen(
-                  sides: s.extra as RepairSides? ?? const RepairSides('', '')),
-              s,
-            ),
-          ),
-          GoRoute(
-              path: 'cooldown',
-              pageBuilder: (c, s) => _fade(const CoolDownScreen(), s)),
-          GoRoute(
-              path: 'close',
-              pageBuilder: (c, s) => _fade(const RepairCloseScreen(), s)),
-        ],
+        path: Routes.jobs,
+        pageBuilder: (c, s) => _fade(const JobsScreen(), s),
       ),
       GoRoute(
         parentNavigatorKey: _rootKey,
-        path: Routes.talk,
-        pageBuilder: (c, s) =>
-            _fade(CounsellorScreen(seed: s.extra as String?), s),
-      ),
-      GoRoute(
-        parentNavigatorKey: _rootKey,
-        path: Routes.safety,
-        pageBuilder: (c, s) => _fade(const SafetyScreen(), s),
-      ),
-      GoRoute(
-        parentNavigatorKey: _rootKey,
-        path: Routes.settings,
-        pageBuilder: (c, s) => _fade(const SettingsScreen(), s),
-        routes: [
-          GoRoute(
-              path: 'origin',
-              pageBuilder: (c, s) => _fade(const EditOriginScreen(), s)),
-          GoRoute(
-              path: 'model',
-              pageBuilder: (c, s) => _fade(const ModelScreen(), s)),
-        ],
-      ),
-      GoRoute(
-        parentNavigatorKey: _rootKey,
-        path: Routes.weeklyPulse,
-        pageBuilder: (c, s) => _fade(const WeeklyPulseScreen(), s),
+        path: Routes.resume,
+        pageBuilder: (c, s) => _fade(const ResumeScreen(), s),
       ),
       GoRoute(
         parentNavigatorKey: _rootKey,
         path: Routes.journal,
-        pageBuilder: (c, s) => _fade(const JournalScreen(), s),
+        pageBuilder: (c, s) => _fade(const CoachJournalScreen(), s),
+      ),
+      GoRoute(
+        parentNavigatorKey: _rootKey,
+        path: Routes.settings,
+        pageBuilder: (c, s) => _fade(const CoachSettingsScreen(), s),
+        routes: [
+          GoRoute(
+              path: 'model',
+              pageBuilder: (c, s) => _fade(const ModelScreen(), s)),
+          GoRoute(
+              path: 'profile',
+              pageBuilder: (c, s) => _fade(const ProfileScreen(), s)),
+        ],
       ),
     ],
   );
 });
 
-/// Cross-fade between atmospheres — a push slide would tear the photo layer.
 CustomTransitionPage<void> _fade(Widget child, GoRouterState state) {
   return CustomTransitionPage<void>(
     key: state.pageKey,

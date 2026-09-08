@@ -465,8 +465,7 @@ class _GoalRow extends ConsumerWidget {
                   goal.text,
                   style: t?.copyWith(
                     color: goal.isDone ? surface.ink2 : surface.ink,
-                    decoration:
-                        goal.isDone ? TextDecoration.lineThrough : null,
+                    decoration: goal.isDone ? TextDecoration.lineThrough : null,
                   ),
                 ),
               ),

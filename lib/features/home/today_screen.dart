@@ -107,20 +107,21 @@ class TodayScreen extends ConsumerWidget {
                       button: true,
                       label: s.openWeeklyPulse,
                       child: InkWell(
-                      onTap: () => context.push(Routes.weeklyPulse),
-                      borderRadius: BorderRadius.circular(context.stage.radius),
-                      child: TintPanel(
-                        label: s.thisWeek,
-                        color: surface.gold,
-                        // Counted from stored check-ins. This card used to be
-                        // hardcoded to "0 of 7" / "1 of 7" no matter what the
-                        // user had actually done all week — and it led
-                        // nowhere.
-                        child: Text(
-                          '${s.checkinsThisWeek(app.checkInsThisWeek)}\n${s.openWeeklyPulse} →',
+                        onTap: () => context.push(Routes.weeklyPulse),
+                        borderRadius:
+                            BorderRadius.circular(context.stage.radius),
+                        child: TintPanel(
+                          label: s.thisWeek,
+                          color: surface.gold,
+                          // Counted from stored check-ins. This card used to be
+                          // hardcoded to "0 of 7" / "1 of 7" no matter what the
+                          // user had actually done all week — and it led
+                          // nowhere.
+                          child: Text(
+                            '${s.checkinsThisWeek(app.checkInsThisWeek)}\n${s.openWeeklyPulse} →',
+                          ),
                         ),
                       ),
-                    ),
                     ),
                   ),
                 ],

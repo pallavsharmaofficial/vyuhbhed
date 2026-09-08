@@ -478,7 +478,6 @@ final counsellorEngineProvider = Provider<CounsellorEngine>((ref) {
   return engine;
 });
 
-
 /// The slice of app state the counsellor actually needs. Screens that generate
 /// something expensive watch this, not [appStateProvider]: a theme flip or a
 /// check-in must not throw away a finished reflection.
