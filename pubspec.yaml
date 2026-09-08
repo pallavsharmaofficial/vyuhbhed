@@ -1,0 +1,73 @@
+name: vyuhbhed
+description: "Saath — an on-device AI relationship counsellor. Free, private, offline."
+publish_to: "none"
+
+# versionName+versionCode for both stores. Bump the build number on every
+# TestFlight / Play internal upload.
+version: 0.1.0+1
+
+environment:
+  sdk: ">=3.4.0 <4.0.0"
+  flutter: ">=3.22.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_riverpod: ^2.5.1
+  go_router: ^14.2.0
+  shared_preferences: ^2.3.2
+  intl: ^0.20.2
+  # Dials the helplines on the safety screen. Only reaches outside the app
+  # when the user taps a helpline.
+  url_launcher: ^6.3.0
+
+  # The on-device counsellor. LiteRT-LM engine, per the launch plan.
+  # flutter_gemma downloads the model once, on the user's say-so, and every
+  # token after that is generated on the phone.
+  flutter_gemma: ^1.7.2
+  flutter_gemma_litertlm: ^1.6.2
+
+  # Chooses the default model from physical RAM: Gemma 3n E2B on 6 GB+, the
+  # 1B fallback below that. Guessing wrong here means an OOM on a ₹12,000
+  # phone, which is most of the market we are aiming at.
+  device_info_plus: ^13.0.0
+
+  # Voice in and read-aloud, both on-device.
+  speech_to_text: ^7.0.0
+  flutter_tts: ^4.2.0
+
+  # Biometric app lock.
+  local_auth: ^3.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/backgrounds/
+    - assets/fonts/OFL.txt
+
+  # Bundled, not fetched. google_fonts downloads from fonts.gstatic.com on first
+  # run, which breaks the offline promise and quietly contradicts the privacy
+  # claim on the welcome screen. These are subset variable fonts (~890 KB total):
+  # Latin for Sora/Source Serif, Devanagari for Noto Serif Devanagari.
+  # Weight comes from the `wght` axis via TextStyle.fontVariations — see
+  # lib/theme/typography.dart.
+  fonts:
+    - family: Sora
+      fonts:
+        - asset: assets/fonts/Sora-Variable.ttf
+    - family: SourceSerif
+      fonts:
+        - asset: assets/fonts/SourceSerif4-Variable.ttf
+        - asset: assets/fonts/SourceSerif4-Italic-Variable.ttf
+          style: italic
+    - family: NotoSerifDevanagari
+      fonts:
+        - asset: assets/fonts/NotoSerifDevanagari-Variable.ttf

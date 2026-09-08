@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <title>Vyuhbhed</title>
+  <meta name="description" content="Most problems are simple. Your brain makes them big. Saath is an AI relationship counsellor that runs entirely on your phone — free, private, and it works offline. English and Hindi.">
+  <meta name="keywords" content="relationship counselling, couples app, marriage help, India, Hindi, private, offline, free">
+
+  <!-- Shown when the link is pasted into WhatsApp, Instagram, Reddit or X.
+       Almost every visitor will arrive through one of those, so the card is
+       the first thing they see, not the app. -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Saath — a counsellor that never leaves your phone">
+  <meta property="og:description" content="Vent messily. Get it untangled into what happened, what you assumed, what you felt, and what you actually need — plus one sentence you could say tonight. Free, private, works offline.">
+  <meta property="og:image" content="icons/Icon-512.png">
+  <meta property="og:locale" content="en_IN">
+  <meta property="og:locale:alternate" content="hi_IN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Saath — a counsellor that never leaves your phone">
+  <meta name="twitter:description" content="An AI relationship counsellor that runs on your phone. Free, private, offline. English and Hindi.">
+  <meta name="twitter:image" content="icons/Icon-512.png">
+
+  <meta name="theme-color" content="#171320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Saath">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* The ground colour from the app's palette, so the first paint is Saath
+       rather than a white flash. Both themes, because the app follows the
+       system and a white flash into a dark app is jarring. */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #F7F5F9;
+      overscroll-behavior: none;
+    }
+    @media (prefers-color-scheme: dark) {
+      html, body { background-color: #171320; }
+    }
+
+    /* Shown until Flutter paints. Deliberately plain: a spinner over a slow
+       Indian connection reads as broken, a sentence reads as loading. */
+    #boot {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #5B5468;
+      text-align: center;
+      padding: 24px;
+    }
+    #boot b { font-size: 20px; font-weight: 700; color: #221D2B; letter-spacing: -0.3px; }
+    #boot span { font-size: 14px; max-width: 30ch; line-height: 1.5; }
+    @media (prefers-color-scheme: dark) {
+      #boot { color: #B3A9C0; }
+      #boot b { color: #F1ECF5; }
+    }
+  </style>
+</head>
+<body>
+  <div id="boot">
+    <b>Saath</b>
+    <span>Loading. This is a preview — the real counsellor runs on your phone.</span>
+    <noscript>
+      <span>Saath needs JavaScript. Turn it on, or get the Android app.</span>
+    </noscript>
+  </div>
+
+  <script>
+    // Remove the boot message once Flutter has painted its first frame.
+    window.addEventListener('flutter-first-frame', function () {
+      var boot = document.getElementById('boot');
+      if (boot) boot.remove();
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

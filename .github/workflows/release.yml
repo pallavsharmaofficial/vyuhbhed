@@ -1,0 +1,107 @@
+name: Release APK
+
+# Builds an installable Android APK and attaches it to a GitHub Release.
+# Free, and it is a real distribution channel: the release page is a public
+# URL you can put in a WhatsApp message.
+#
+#   git tag v0.3.0 && git push origin v0.3.0
+#
+# SIGNING
+# -------
+# If the repo has the four secrets below, the APK is signed with your upload
+# key and is the same artifact you would send to Play. Without them Gradle
+# falls back to the debug key: still installable, still shareable, but NOT
+# acceptable to Play and not something to build a userbase on — a debug-signed
+# app cannot later be updated by a properly signed one.
+#
+#   ANDROID_KEYSTORE_BASE64   base64 -i ~/.saath/upload-keystore.jks | pbcopy
+#   ANDROID_KEYSTORE_PASSWORD
+#   ANDROID_KEY_PASSWORD
+#   ANDROID_KEY_ALIAS         "upload"
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.44.8
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      - name: Restore signing key
+        # Mapped to env first: a `secrets` expression in a step `if` is
+        # fragile, and an indented heredoc terminator silently does not
+        # terminate. Both are the kind of failure you debug at midnight.
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          if [ -z "$KEYSTORE_B64" ]; then
+            echo "::warning::No signing key configured. Falling back to the debug key."
+            echo "This APK is installable and shareable, but Play will not take it,"
+            echo "and a debug-signed install cannot later be updated by a signed one."
+            exit 0
+          fi
+          printf '%s' "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+          {
+            printf 'storePassword=%s\n' "$STORE_PASSWORD"
+            printf 'keyPassword=%s\n' "$KEY_PASSWORD"
+            printf 'keyAlias=%s\n' "${KEY_ALIAS:-upload}"
+            printf 'storeFile=%s\n' "$RUNNER_TEMP/upload.jks"
+          } > android/key.properties
+
+      - name: Build
+        # arm64 only — see docs/RELEASE.md. SAATH_MODEL_BASE_URL is optional;
+        # without it the app runs the preview engine and says so.
+        run: |
+          flutter build apk --release \
+            --target-platform android-arm64 \
+            ${{ vars.SAATH_MODEL_BASE_URL && format('--dart-define=SAATH_MODEL_BASE_URL={0}', vars.SAATH_MODEL_BASE_URL) || '' }} \
+            ${{ vars.SAATH_MODEL_IDS && format('--dart-define=SAATH_MODEL_IDS={0}', vars.SAATH_MODEL_IDS) || '' }} \
+            ${{ vars.SAATH_SUPPORT_URL && format('--dart-define=SAATH_SUPPORT_URL={0}', vars.SAATH_SUPPORT_URL) || '' }}
+          mv build/app/outputs/flutter-apk/app-release.apk saath-${{ github.ref_name }}.apk
+
+      - name: Build Play bundle
+        # Same flags as the APK. This is the file Play Console takes; the APK
+        # above is for sideloading from the release page.
+        run: |
+          flutter build appbundle --release \
+            --target-platform android-arm64 \
+            ${{ vars.SAATH_MODEL_BASE_URL && format('--dart-define=SAATH_MODEL_BASE_URL={0}', vars.SAATH_MODEL_BASE_URL) || '' }} \
+            ${{ vars.SAATH_MODEL_IDS && format('--dart-define=SAATH_MODEL_IDS={0}', vars.SAATH_MODEL_IDS) || '' }} \
+            ${{ vars.SAATH_SUPPORT_URL && format('--dart-define=SAATH_SUPPORT_URL={0}', vars.SAATH_SUPPORT_URL) || '' }}
+          mv build/app/outputs/bundle/release/app-release.aab saath-${{ github.ref_name }}.aab
+
+      - name: Publish
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            saath-${{ github.ref_name }}.apk
+            saath-${{ github.ref_name }}.aab
+          generate_release_notes: true
+          body: |
+            **Android, arm64, Android 10+.**
+
+            Download the `.apk`, open it on your phone, and allow installs from
+            this source when asked. Nothing you type in Saath leaves your phone.
+
+            If your build has no model host configured, the counsellor runs
+            scripted sample replies and Settings says so.

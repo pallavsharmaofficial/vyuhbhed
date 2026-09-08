@@ -1,0 +1,64 @@
+name: Deploy web preview
+
+# Publishes the web preview to GitHub Pages, free, on every push to main.
+#
+# One-time setup in the repo: Settings -> Pages -> Source: "GitHub Actions".
+# Nothing else. No account beyond GitHub, no card, no bill.
+#
+# The site lands at https://<user>.github.io/<repo>/ — which is why base-href
+# is set below. Without it every asset 404s and you get a white screen.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deploy at a time; never cancel one half-done.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.44.8
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      - name: Build web
+        # The repo name becomes the path segment on GitHub Pages.
+        run: |
+          flutter build web --release \
+            --base-href "/${GITHUB_REPOSITORY#*/}/" \
+            --no-wasm-dry-run
+
+      - name: SPA fallback
+        # GitHub Pages has no rewrite rules, so a deep link like /untangle
+        # would 404. Serving index.html as the 404 page hands the route back
+        # to go_router instead.
+        run: cp build/web/index.html build/web/404.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

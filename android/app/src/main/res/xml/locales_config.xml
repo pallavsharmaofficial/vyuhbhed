@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Per-app language picker (Android 13+). Saath also keeps its own in-app
+     language switch, which is what most of our users will actually find. -->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en-IN" />
+    <locale android:name="hi-IN" />
+</locale-config>
