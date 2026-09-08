@@ -14,7 +14,7 @@ name: Release APK
 # acceptable to Play and not something to build a userbase on — a debug-signed
 # app cannot later be updated by a properly signed one.
 #
-#   ANDROID_KEYSTORE_BASE64   base64 -i ~/.saath/upload-keystore.jks | pbcopy
+#   ANDROID_KEYSTORE_BASE64   base64 -i ~/.vyuhbhed/upload-keystore.jks | pbcopy
 #   ANDROID_KEYSTORE_PASSWORD
 #   ANDROID_KEY_PASSWORD
 #   ANDROID_KEY_ALIAS         "upload"
@@ -77,7 +77,7 @@ jobs:
             ${{ vars.SAATH_MODEL_BASE_URL && format('--dart-define=SAATH_MODEL_BASE_URL={0}', vars.SAATH_MODEL_BASE_URL) || '' }} \
             ${{ vars.SAATH_MODEL_IDS && format('--dart-define=SAATH_MODEL_IDS={0}', vars.SAATH_MODEL_IDS) || '' }} \
             ${{ vars.SAATH_SUPPORT_URL && format('--dart-define=SAATH_SUPPORT_URL={0}', vars.SAATH_SUPPORT_URL) || '' }}
-          mv build/app/outputs/flutter-apk/app-release.apk saath-${{ github.ref_name }}.apk
+          mv build/app/outputs/flutter-apk/app-release.apk vyuhbhed-${{ github.ref_name }}.apk
 
       - name: Build Play bundle
         # Same flags as the APK. This is the file Play Console takes; the APK
@@ -88,14 +88,14 @@ jobs:
             ${{ vars.SAATH_MODEL_BASE_URL && format('--dart-define=SAATH_MODEL_BASE_URL={0}', vars.SAATH_MODEL_BASE_URL) || '' }} \
             ${{ vars.SAATH_MODEL_IDS && format('--dart-define=SAATH_MODEL_IDS={0}', vars.SAATH_MODEL_IDS) || '' }} \
             ${{ vars.SAATH_SUPPORT_URL && format('--dart-define=SAATH_SUPPORT_URL={0}', vars.SAATH_SUPPORT_URL) || '' }}
-          mv build/app/outputs/bundle/release/app-release.aab saath-${{ github.ref_name }}.aab
+          mv build/app/outputs/bundle/release/app-release.aab vyuhbhed-${{ github.ref_name }}.aab
 
       - name: Publish
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            saath-${{ github.ref_name }}.apk
-            saath-${{ github.ref_name }}.aab
+            vyuhbhed-${{ github.ref_name }}.apk
+            vyuhbhed-${{ github.ref_name }}.aab
           generate_release_notes: true
           body: |
             **Android, arm64, Android 10+.**
